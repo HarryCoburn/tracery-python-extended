@@ -18,7 +18,7 @@ from random import sample
 
 def isConsonant(c):
     """Returns true if a character c is a consonant"""
-    return c.lower() not in ["aeiou"]
+    return c.lower() not in "aeiou"
 
 
 def endsWithConY(s):
@@ -97,3 +97,6 @@ def ed(s):
         return first + "d" + sep + rest
     else:
         return first + "ed" + sep + rest
+
+
+# TODO Make dictionary for export
