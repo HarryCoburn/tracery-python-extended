@@ -10,22 +10,21 @@ add it to the dictionary at the end of this."""
 
 import re
 import string
-from asyncio.unix_events import SelectorEventLoop
-from random import sample
 
 # TODO: Guards against empty strings
 
+VOWELS = "aeiou"
 
-def isConsonant(c):
+
+def is_consonant(c):
     """Returns true if a character c is a consonant"""
-    return c.lower() not in "aeiou"
+    return c.lower() not in VOWELS
 
 
-def endsWithConY(s):
+def ends_with_consonant_and_y(s):
     """For pluralization of words ending in y to make ies"""
-    if s[-1] == "y":
-        return isConsonant(s[-2])
-    return False
+    # TODO Guard against strings less than two characters.
+    return is_consonant(s[-2]) and s[-1] == "y"
 
 
 # modifiers variable is an object of functions. Those functions are below.
