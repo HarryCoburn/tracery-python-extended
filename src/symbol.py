@@ -14,5 +14,8 @@ class Symbol:
         self.rule_sets.append(rule_set)
         self.current_rules = self.rule_sets[-1]
 
+    def get_rule(self):
+        return self.current_rules.get()
+
     def __repr__(self) -> str:
         return f"Symbol({self.key!r})"

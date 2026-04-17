@@ -1,5 +1,6 @@
 from .modifiers import modifiers as base_modifiers
 from .node import RootNode
+from .rule import Rule
 from .symbol import Symbol
 
 
@@ -33,7 +34,22 @@ class Grammar:
         The one built into the samples is #origin#"""
         root = RootNode(self, raw)
         root.expand()
-        return root.childText
+        return root.child_text
+
+    def get_rule(self, key):
+        symbol = self.symbols.get(key)
+        if not symbol
+            r = Rule(f"((missing symbol: {key}))")
+            r.error = f"Missing symbol {key}"
+            return r
+
+        rule = symbol.get_rule()
+        if not rule:
+            r = Rule(f"((empty: {key}))")
+            r.error = f"Symbol {key} has no rule"
+            return r
+
+        return rule
 
     def __repr__(self) -> str:
         return f"Grammar(symbols={list(self.symbols)})"
