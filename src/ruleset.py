@@ -5,6 +5,8 @@
 
 from enum import Enum
 
+from random import Random
+
 from .rule import Rule
 
 
@@ -38,14 +40,26 @@ class RuleSet:
     def applyToRules(self, fxn):
         pass
 
-    def getRuleByIndex(self, fxn):
-        pass
+    def get(self):
+        index = self.getIndex()
+        return self.rules[index]
 
     def getRandomIndex(self):
-        pass
+        return Math.floor(len(self.uses) * Random.random())
 
     def getIndex(self):
-        pass
+        index = self.getRandomIndex()
+        median = self.totalUsers / len(self.uses)
+        count = 0
+
+        while (self.uses[index] > median and count < 20):
+            index = self.getRandomIndex()
+            count++
+
+        return index
+
+
+
 
     def decayUses(self, pct):
         pass
