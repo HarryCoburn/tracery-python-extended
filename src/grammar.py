@@ -5,10 +5,12 @@ from .symbol import Symbol
 
 
 class Grammar:
-    def __init__(self) -> None:
+    def __init__(self, rules=None) -> None:
         self.symbols = {}
         self.modifiers = base_modifiers.copy()
         self.symbol_names = []
+        if rules is not None:
+            self.load_from(rules)
 
     # Loading and changing grammars
     def clear(self):
@@ -54,8 +56,7 @@ class Grammar:
 
     def apply_mod(self, mod_name, text):
         if mod_name not in self.modifiers:
-            # Raise error
-            pass
+            raise KeyError(f"Unknown modifier: {mod_name!r}")
         return self.modifiers[mod_name](text)
 
     def __repr__(self) -> str:
