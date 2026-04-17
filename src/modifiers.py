@@ -15,87 +15,112 @@ import string
 
 VOWELS = "aeiou"
 
-
-def is_consonant(c):
-    """Returns true if a character c is a consonant"""
-    return c.lower() not in VOWELS
+modifiers = {}
 
 
-def ends_with_consonant_and_y(s):
-    """For pluralization of words ending in y to make ies"""
-    # TODO Guard against strings less than two characters.
-    return is_consonant(s[-2]) and s[-1] == "y"
+def modifier(name):
+    def decorator(fn):
+        modifiers[name] = fn
+        return fn
+
+    return decorator
 
 
-# modifiers variable is an object of functions. Those functions are below.
+# Helper functions
 
 
-def titleCase(s):
+def is_consonant(c: str) -> bool:
+    """Returns true if a character c is an alphabetic consonant.
+    Non-letters return false."""
+    return c.isalpha() and c.lower() not in VOWELS
+
+
+def ends_with_consonant_and_y(word: str) -> bool:
+    """For pluralization of words ending in y to make ies.
+    Words fewer than two characters return false."""
+    return len(word) >= 2 and is_consonant(word[-2]) and word[-1] == "y"
+
+
+# Modifiers to add to dictionary
+
+
+@modifier("title_case")
+def title_case(sentence: str) -> str:
     """Capitalize the first letter in each word of the string."""
     # Was capitalizeAll
-    if s:
-        return string.capwords(s)
+    if sentence:
+        return string.capwords(sentence)
+    else:
+        return sentence
 
 
-def sentenceCase(s):
+@modifier("sentence_case")
+def sentence_case(sentence: str) -> str:
     """Capitalizes the first letter in a string representing a sentence."""
     # Was capitalize
-    if s:
-        return s[0].upper() + s[1:]
+    if sentence:
+        return sentence[0].upper() + sentence[1:]
+    else:
+        return sentence
 
 
-def inQuotes(s):
-    """Wraps string in quotes"""
-    if s:
-        return f'"{s}"'
+@modifier("in_quotes")
+def in_quotes(sentence: str) -> str:
+    """Wraps sentence in quotes"""
+    if sentence:
+        return f'"{sentence}"'
+    else:
+        return sentence
 
 
-def addEndPunctuation(s):
+@modifier("add_end_punctuation")
+def add_end_punctuation(sentence: str) -> str:
     """Confirms end puncutation. Adds a comma if it is missing."""
     # was comma
-    if s[-1] in ",.?!":
-        return s
-    return s + ","
+    if sentence[-1] in ",.?!":
+        return sentence
+    return sentence + ","
 
 
-def beeSpeak(s):
+@modifier("bee_speak")
+def bee_speak(sentence: str) -> str:
     """Example of a custom tweak. Replaces the first s in the string with zzz"""
-    s = re.sub(r"s", "zzz", s, count=1)
-    return s
+    sentence = re.sub(r"s", "zzz", sentence, count=1)
+    return sentence
 
 
-def a(s):
+@modifier("a")
+def add_indefinite_article(word: str) -> str:
     """Adds the correct indefinite article"""
-    if not isConsonant(s[0]):
-        return "an " + s
-    return "a " + s
+    if not is_consonant(word[0]):
+        return "an " + word
+    return "a " + word
 
 
-def s(s):
-    if s[-1] == "y":
-        if endsWithConY(s) is False:
-            return s + "s"
+@modifier("s")
+def pluralize(word: str) -> str:
+    if word[-1] == "y":
+        if ends_with_consonant_and_y(word) is False:
+            return word + "s"
         else:
-            return s[0:-2] + "ies"
-    elif s[-1] == "x":
-        return s + "en"
-    elif s[-1] == "z" or s[-1] == "h":
-        return s + "es"
+            return word[0:-1] + "ies"
+    elif word[-1] == "x":
+        return word + "en"
+    elif word[-1] == "z" or word[-1] == "h":
+        return word + "es"
     else:
-        return s + "s"
+        return word + "s"
 
 
-def ed(s):
-    first, sep, rest = s.partition(" ")
+@modifier("ed")
+def past_tense(text: str) -> str:
+    first, sep, rest = text.partition(" ")
     if first[-1] == "y":
-        if endsWithConY(first) is False:
+        if ends_with_consonant_and_y(first) is False:
             return first + "ed" + sep + rest
         else:
-            return s[0:-2] + "ied" + sep + rest
+            return first[0:-1] + "ied" + sep + rest
     elif first[-1] == "e":
         return first + "d" + sep + rest
     else:
-        return first + "ed" + sep + rest
-
-
-# TODO Make dictionary for export
+        return first[0:-1] + "ed" + sep + rest
