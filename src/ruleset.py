@@ -3,9 +3,8 @@
 # Conversion and upgrade by Harry Coburn
 ###
 
+import random
 from enum import Enum
-
-from random import Random
 
 from .rule import Rule
 
@@ -41,34 +40,18 @@ class RuleSet:
         pass
 
     def get(self):
-        index = self.getIndex()
-        return self.rules[index]
+        return self.rules[self._get_index()]
 
-    def getRandomIndex(self):
-        return Math.floor(len(self.uses) * Random.random())
+    def _get_index(self):
+        min_uses = min(self.uses)
+        candidates = [i for i, u in enumerate(self.uses) if u == min_uses]
+        idx = random.choice(candidates)
+        self.uses[idx] += 1
+        self.totalUses += 1
+        return idx
 
-    def getIndex(self):
-        index = self.getRandomIndex()
-        median = self.totalUsers / len(self.uses)
-        count = 0
-
-        while (self.uses[index] > median and count < 20):
-            index = self.getRandomIndex()
-            count++
-
-        return index
+    # Original decayUses, testRandom, and getSaveRules are not needed.
 
 
-
-
-    def decayUses(self, pct):
-        pass
-
-    def testRandom(self):
-        pass
-
-    def getSaveRules(self):
-        pass
-
-    def __repr__(self) -> str:
+   def __repr__(self) -> str:
         return f"RuleSet({self.rules!r})"
