@@ -52,6 +52,12 @@ class Grammar:
 
         return rule
 
+    def apply_mod(self, mod_name, text):
+        if mod_name not in self.modifiers:
+            # Raise error
+            pass
+        return self.modifiers[mod_name](text)
+
     def __repr__(self) -> str:
         return f"Grammar(symbols={list(self.symbols)})"
 
