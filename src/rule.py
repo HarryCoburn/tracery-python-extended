@@ -12,8 +12,11 @@ class Rule:
         self.sections = parse_rule(raw)
         self.error = ""
 
-    def getParsed(self):
-        pass
+    def get_parsed(self):
+        if not self.sections:
+            self.sections = parse_rule(self.raw)
+
+        return self.sections
 
     def __str__(self) -> str:
         return self.raw

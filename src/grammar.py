@@ -22,7 +22,7 @@ class Grammar:
 
         symbol_keys = obj.keys()
 
-        for idx, key in enumerate(symbol_keys):
+        for key in symbol_keys:
             self.symbol_names.append(key)
             self.symbols[key] = Symbol(self, key)
             self.symbols[key].load_from(obj[key])

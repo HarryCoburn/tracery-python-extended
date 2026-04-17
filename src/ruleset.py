@@ -52,6 +52,5 @@ class RuleSet:
 
     # Original decayUses, testRandom, and getSaveRules are not needed.
 
-
-   def __repr__(self) -> str:
+    def __repr__(self) -> str:
         return f"RuleSet({self.rules!r})"

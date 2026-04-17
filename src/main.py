@@ -6,7 +6,7 @@ class Tracery:
         self.grammar = Grammar()
 
     def createGrammar(self, grammar_obj):
-        self.grammar = self.grammar.load_from(grammar_obj)
+        self.grammar.load_from(grammar_obj)
 
     # from traceryCore:
     # Ignore addError or use a logger.
