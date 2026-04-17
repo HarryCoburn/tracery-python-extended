@@ -5,35 +5,32 @@
 
 from enum import Enum
 
+from .rule import Rule
+
 
 class RuleWeighting(Enum):
-    RED = (0,)
-    GREEN = (1,)
+    RED = 0
+    GREEN = 1
     BLUE = 2
 
 
 class RuleSet:
     def __init__(self, rules) -> None:
-        # A ruleset verifier is run first
         self.verify_rules(rules)
         self.rules = rules
-        self.parseAll()
-        self.uses = []
-        self.startUses = []
+        self.parse_all()
+        self.uses = [0] * len(self.rules)
+        self.startUses = list(self.uses)
         self.totalUses = 0
-        for i in range(0, len(self.rules)):
-            self.uses[i] = 0
-            self.startUses[i] = self.uses[i]
-            self.totalUses += self.uses[i]
 
     def verify_rules(self, rules):
-        if not isinstance(rules, RuleSet):
-            if not isinstance(rules, list) and not isinstance(rules, str):
-                raise ValueError(f"Unknown rules type: {rules}")
+        if not isinstance(rules, (RuleSet, list)):
+            # TODO Removed string as a rule type. See if this appears in the grammars.
+            raise ValueError(f"Unknown rules type: {rules}")
 
-    def parseAll(self):
-        """Iterating over rules"""
-        pass
+    def parse_all(self):
+        """Turns rules into Rule objects, if they are not"""
+        self.rules = [r if isinstance(r, Rule) else Rule(r) for r in self.rules]
 
     def mapRules(self, fxn):
         pass

@@ -3,13 +3,13 @@
 # Conversion and upgrade by Harry Coburn
 ###
 
-from .main import tracery
+from .parsers import parse_rule
 
 
 class Rule:
     def __init__(self, raw) -> None:
         self.raw = raw
-        self.sections = tracery.parseRule(raw)
+        self.sections = parse_rule(raw)
 
     def getParsed(self):
         pass
@@ -28,3 +28,11 @@ class Rule:
 
     def to_json(self) -> str:
         return self.raw
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Rule):
+            return NotImplemented
+        return self.raw == other.raw and self.sections == other.sections
+
+    def __hash__(self) -> int:
+        return hash(self.raw)

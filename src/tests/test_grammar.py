@@ -1,6 +1,7 @@
 import unittest
 
 from ..grammar import Grammar
+from ..rule import Rule
 
 # TODO: One test method per logical case, not per function. Split into
 # separate modules or learn to use subtest. Method names should be
@@ -17,7 +18,10 @@ class TestGrammar(unittest.TestCase):
         self.assertIn("animal", grammar.symbols)
         animal = grammar.symbols["animal"]
         self.assertEqual(animal.key, "animal")
-        self.assertEqual(animal.current_rules.rules, ["unicorn", "raven", "sparrow"])
+        self.assertEqual(
+            animal.current_rules.rules,
+            [Rule("unicorn"), Rule("raven"), Rule("sparrow")],
+        )
         self.assertEqual(animal.current_rules.uses, [0, 0, 0])
 
 
