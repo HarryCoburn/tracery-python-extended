@@ -16,14 +16,10 @@ class Grammar:
     def load_from(self, obj):
         """Loads obj into the Grammar instance"""
         self.clear()
-        if isinstance(obj, dict) and "symbols" in obj:
-            symbol_source = obj["symbols"]
-        else:
-            symbol_source = obj
 
         symbol_keys = obj.keys()
 
         for idx, key in enumerate(symbol_keys):
             self.symbol_names.append(key)
             self.symbols[key] = Symbol(self, key)
-            self.symbols[key].load_from(symbol_source[key])
+            self.symbols[key].load_from(obj[key])

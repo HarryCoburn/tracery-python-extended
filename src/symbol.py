@@ -9,7 +9,7 @@ class Symbol:
         self.rule_sets = []
 
     def load_from(self, rules):
-        rules = self.wrap_rules(rules)
-        self.base_rules = rules
-        self.rule_sets.append(rules)
+        rule_set = RuleSet(rules)
+        self.base_rules = rule_set
+        self.rule_sets.append(rule_set)
         self.current_rules = self.rule_sets[-1]

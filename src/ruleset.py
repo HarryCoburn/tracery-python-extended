@@ -15,7 +15,7 @@ class RuleWeighting(Enum):
 class RuleSet:
     def __init__(self, rules) -> None:
         # A ruleset verifier is run first
-
+        self.verify_rules(rules)
         self.rules = rules
         self.parseAll()
         self.uses = []
@@ -25,6 +25,11 @@ class RuleSet:
             self.uses[i] = 0
             self.startUses[i] = self.uses[i]
             self.totalUses += self.uses[i]
+
+    def verify_rules(self, rules):
+        if not isinstance(rules, RuleSet):
+            if not isinstance(rules, list) and not isinstance(rules, str):
+                raise ValueError(f"Unknown rules type: {rules}")
 
     def parseAll(self):
         """Iterating over rules"""
