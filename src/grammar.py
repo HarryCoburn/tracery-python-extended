@@ -15,6 +15,7 @@ class Grammar:
         """Resets the grammar instance"""
         self.symbols = {}
         self.modifiers = base_modifiers.copy()
+        self.symbol_names = []
 
     def load_from(self, obj):
         """Loads obj into the Grammar instance"""
