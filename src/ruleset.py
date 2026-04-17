@@ -25,9 +25,13 @@ class RuleSet:
         self.totalUses = 0
 
     def verify_rules(self, rules):
-        if not isinstance(rules, (RuleSet, list)):
-            # TODO Removed string as a rule type. See if this appears in the grammars.
-            raise ValueError(f"Unknown rules type: {rules}")
+        if isinstance(rules, RuleSet):
+            return list(rules.rules)
+        if isinstance(rules, str):
+            return [rules]
+        if isinstance(rules, list):
+            return list(rules)
+        raise TypeError(f"Unknown rules type: {rules}")
 
     def parse_all(self):
         """Turns rules into Rule objects, if they are not"""
