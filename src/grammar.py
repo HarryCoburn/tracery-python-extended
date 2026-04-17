@@ -38,7 +38,7 @@ class Grammar:
 
     def get_rule(self, key):
         symbol = self.symbols.get(key)
-        if not symbol
+        if not symbol:
             r = Rule(f"((missing symbol: {key}))")
             r.error = f"Missing symbol {key}"
             return r
