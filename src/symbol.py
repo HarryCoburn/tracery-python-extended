@@ -17,5 +17,32 @@ class Symbol:
     def get_rule(self):
         return self.current_rules.get()
 
+    def mapRules(self, fxn):
+        pass
+
+    def applyToRules(self, fxn):
+        pass
+
+    def wrapRules(self, rules):
+        pass
+
+    def pushRules(self, rules):
+        pass
+
+    def popRules(self, rules):
+        pass
+
+    def setRules(self, rules):
+        pass
+
+    def addRule(self, rule):
+        pass
+
+    def select(self, rule):
+        pass
+
+    def deselect(self, rule):
+        pass
+
     def __repr__(self) -> str:
         return f"Symbol({self.key!r})"

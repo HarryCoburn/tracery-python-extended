@@ -53,3 +53,33 @@ class Grammar:
 
     def __repr__(self) -> str:
         return f"Grammar(symbols={list(self.symbols)})"
+
+    def select(self):
+        pass
+
+    def deselect(self):
+        pass
+
+    def mapSymbols(self, fxn):
+        pass
+
+    def applyToSymbols(self, fxn):
+        pass
+
+    def addOrGetSymbol(self, key):
+        pass
+
+    def pushRules(self, key, rules):
+        pass
+
+    def popRules(self, key, rules):
+        pass
+
+    def expand(self, raw):
+        pass
+
+    def analyze(self):
+        pass
+
+    def selectSymbol(self, key):
+        pass

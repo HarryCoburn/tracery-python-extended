@@ -15,12 +15,6 @@ class Rule:
     def getParsed(self):
         pass
 
-    def toString(self):
-        pass
-
-    def toJSONString(self):
-        pass
-
     def __str__(self) -> str:
         return self.raw
 

@@ -6,7 +6,12 @@
 
 # This class originally relied on a class library to create inheritance. We can do this all in Python.
 
+import logging
+
+from .action import Action
 from .parsers import parse_rule
+
+logger = logging.getLogger(__name__)
 
 
 class Node:
@@ -75,35 +80,32 @@ class TagNode(Node):
         self.raw = parsed_tag["raw"]
 
     def expand(self):
-        # tracery.outputExpansionTrace flag for console logging. Ignore
-
         self.rule = self.grammar.get_rule(self.symbol)
-        
-        if self.rule.error: # assuming get_rule will return an error here
-           self.error = self.rule.error
-           add_error(this.error) # Better served with logging
+
+        if self.rule.error:
+            self.error = self.rule.error
+            logger.warning(self.error)
 
         self.actions = []
-        
+
         self.create_children_from_sections(self.rule.get_parsed())
 
         for pre_action in self.pre_actions:
             action = Action(self, pre_action)
             action.activate()
-            
-        # if (!this.rule.sections) console.log(this.rule)
-        
+
         self.expand_children()
-        
+
         for action in self.actions:
             action.deactivate()
-            
+
         self.final_text = self.child_text
-        
+
         for mod in self.mods:
             self.final_text = self.grammar.apply_mod(mod, self.final_text)
-           
+
     # Add a __repr__ later to show symbol, mods, pre, post actions
+
 
 class TextNode(Node):
     isLeaf = True
