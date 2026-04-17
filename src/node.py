@@ -93,6 +93,7 @@ class TagNode(Node):
         for pre_action in self.pre_actions:
             action = Action(self, pre_action)
             action.activate()
+            self.actions.append(action)
 
         self.expand_children()
 
