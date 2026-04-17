@@ -1,7 +1,23 @@
 import unittest
-from copyreg import add_extension
 
-from ..modifiers import *
+from ..modifiers import (
+    add_end_punctuation,
+    add_indefinite_article,
+    bee_speak,
+    ends_with_consonant_and_y,
+    in_quotes,
+    is_consonant,
+    past_tense,
+    pluralize,
+    sentence_case,
+    title_case,
+)
+
+# TODO: One test method per logical case, not per function. Split into
+# separate modules or learn to use subtest. Method names should be
+# about behavior, not the function.
+#
+# TODO: Test the modifiers case.
 
 
 class TestModifiers(unittest.TestCase):
@@ -51,6 +67,7 @@ class TestModifiers(unittest.TestCase):
 
     def test_past_tense(self):
         self.assertEqual(past_tense("jumps on you"), "jumped on you")
+        self.assertEqual(past_tense("walk"), "walked")
 
 
 if __name__ == "__main__":

@@ -10,12 +10,11 @@ add it to the dictionary at the end of this."""
 
 import re
 import string
-
-# TODO: Guards against empty strings
+from typing import Callable
 
 VOWELS = "aeiou"
 
-modifiers = {}
+modifiers: dict[str, Callable[[str], str]] = {}
 
 
 def modifier(name):
@@ -77,6 +76,8 @@ def in_quotes(sentence: str) -> str:
 def add_end_punctuation(sentence: str) -> str:
     """Confirms end puncutation. Adds a comma if it is missing."""
     # was comma
+    if not sentence:
+        return sentence
     if sentence[-1] in ",.?!":
         return sentence
     return sentence + ","
@@ -85,6 +86,8 @@ def add_end_punctuation(sentence: str) -> str:
 @modifier("bee_speak")
 def bee_speak(sentence: str) -> str:
     """Example of a custom tweak. Replaces the first s in the string with zzz"""
+    if not sentence:
+        return sentence
     sentence = re.sub(r"s", "zzz", sentence, count=1)
     return sentence
 
@@ -92,6 +95,8 @@ def bee_speak(sentence: str) -> str:
 @modifier("a")
 def add_indefinite_article(word: str) -> str:
     """Adds the correct indefinite article"""
+    if not word:
+        return word
     if not is_consonant(word[0]):
         return "an " + word
     return "a " + word
@@ -99,14 +104,17 @@ def add_indefinite_article(word: str) -> str:
 
 @modifier("s")
 def pluralize(word: str) -> str:
+    """Makes a given word plural"""
+    if not word:
+        return word
     if word[-1] == "y":
-        if ends_with_consonant_and_y(word) is False:
+        if not ends_with_consonant_and_y(word):
             return word + "s"
         else:
-            return word[0:-1] + "ies"
+            return word[:-1] + "ies"
     elif word[-1] == "x":
         return word + "en"
-    elif word[-1] == "z" or word[-1] == "h":
+    elif word[-1] in "zh":
         return word + "es"
     else:
         return word + "s"
@@ -114,13 +122,18 @@ def pluralize(word: str) -> str:
 
 @modifier("ed")
 def past_tense(text: str) -> str:
+    """Makes a word past tense. Original library assumed possible multi-word string.
+    Only first word is put into past tense"""
+    # TODO: Consider studying the Inflect or Pattern libraries for their grammar tools, or just use Inflect.
+    if not text:
+        return text
     first, sep, rest = text.partition(" ")
     if first[-1] == "y":
-        if ends_with_consonant_and_y(first) is False:
+        if not ends_with_consonant_and_y(first):
             return first + "ed" + sep + rest
         else:
-            return first[0:-1] + "ied" + sep + rest
+            return first[:-1] + "ied" + sep + rest
     elif first[-1] == "e":
         return first + "d" + sep + rest
     else:
-        return first[0:-1] + "ed" + sep + rest
+        return first + "ed" + sep + rest
