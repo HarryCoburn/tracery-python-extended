@@ -104,9 +104,9 @@ def parse_tag(tag):
                         prefxns.append(parse_action(section))
                     else:
                         postfxns.append(parse_action(section))
-                        start = idx + 1
+                    start = idx + 1
 
-    final_idx = len(tag) - 1
+    final_idx = len(tag)
     if start != final_idx:
         section = tag[start:final_idx]
         if not in_pre:

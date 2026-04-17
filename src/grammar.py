@@ -23,3 +23,6 @@ class Grammar:
             self.symbol_names.append(key)
             self.symbols[key] = Symbol(self, key)
             self.symbols[key].load_from(obj[key])
+
+    def __repr__(self) -> str:
+        return f"Grammar(symbols={list(self.symbols)})"

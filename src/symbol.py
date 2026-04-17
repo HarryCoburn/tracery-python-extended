@@ -13,3 +13,6 @@ class Symbol:
         self.base_rules = rule_set
         self.rule_sets.append(rule_set)
         self.current_rules = self.rule_sets[-1]
+
+    def __repr__(self) -> str:
+        return f"Symbol({self.key!r})"

@@ -55,3 +55,6 @@ class RuleSet:
 
     def getSaveRules(self):
         pass
+
+    def __repr__(self) -> str:
+        return f"RuleSet({self.rules!r})"
