@@ -43,7 +43,7 @@ def ends_with_consonant_and_y(word: str) -> bool:
 # Modifiers to add to dictionary
 
 
-@modifier("title_case")
+@modifier("capitalizeAll")
 def title_case(sentence: str) -> str:
     """Capitalize the first letter in each word of the string."""
     # Was capitalizeAll
@@ -53,7 +53,7 @@ def title_case(sentence: str) -> str:
         return sentence
 
 
-@modifier("sentence_case")
+@modifier("capitalize")
 def sentence_case(sentence: str) -> str:
     """Capitalizes the first letter in a string representing a sentence."""
     # Was capitalize
@@ -63,7 +63,7 @@ def sentence_case(sentence: str) -> str:
         return sentence
 
 
-@modifier("in_quotes")
+@modifier("inQuotes")
 def in_quotes(sentence: str) -> str:
     """Wraps sentence in quotes"""
     if sentence:
@@ -72,7 +72,7 @@ def in_quotes(sentence: str) -> str:
         return sentence
 
 
-@modifier("add_end_punctuation")
+@modifier("comma")
 def add_end_punctuation(sentence: str) -> str:
     """Confirms end puncutation. Adds a comma if it is missing."""
     # was comma
@@ -83,7 +83,7 @@ def add_end_punctuation(sentence: str) -> str:
     return sentence + ","
 
 
-@modifier("bee_speak")
+@modifier("beeSpeak")
 def bee_speak(sentence: str) -> str:
     """Example of a custom tweak. Replaces the first s in the string with zzz"""
     if not sentence:
