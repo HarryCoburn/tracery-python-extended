@@ -1,3 +1,14 @@
+"""
+The Tracery Grammar class, which is the top-level class.
+The two important public functions are:
+    load_from(grammar): Takes grammar, a Tracery grammar, and loads it into the Grammar class by processing its symbols and rules.
+    flatten(raw): Takes raw, an entry point symbol (usually #origin#), and processes its key using the grammar to return the requested string.
+Grammar can also be initialized directly with a grammar.
+
+Grammar has:
+    symbols = a dict of string keys and Symbol values, taken from the keys in the loaded grammar.
+"""
+
 from .modifiers import modifiers as base_modifiers
 from .node import RootNode
 from .rule import Rule
@@ -5,30 +16,27 @@ from .symbol import Symbol
 
 
 class Grammar:
-    def __init__(self, rules=None) -> None:
+    """The Tracery Grammar class"""
+
+    def __init__(self, grammar=None) -> None:
         self.symbols = {}
         self.modifiers = base_modifiers.copy()
-        self.symbol_names = []
-        if rules is not None:
-            self.load_from(rules)
+        if grammar is not None:
+            self.load_from(grammar)
 
     # Loading and changing grammars
     def clear(self):
         """Resets the grammar instance"""
         self.symbols = {}
         self.modifiers = base_modifiers.copy()
-        self.symbol_names = []
 
-    def load_from(self, obj):
-        """Loads obj into the Grammar instance"""
+    def load_from(self, grammar):
+        """Loads grammar into the Grammar instance"""
         self.clear()
 
-        symbol_keys = obj.keys()
-
-        for key in symbol_keys:
-            self.symbol_names.append(key)
+        for key, rules in grammar.items():
             self.symbols[key] = Symbol(self, key)
-            self.symbols[key].load_from(obj[key])
+            self.symbols[key].load_from(rules)
 
     # Creating output
 
@@ -39,7 +47,10 @@ class Grammar:
         root.expand()
         return root.child_text
 
+    # Nodes
+
     def get_rule(self, key):
+        """Gets the rules from a given symbol. Called by Nodes"""
         symbol = self.symbols.get(key)
         if not symbol:
             r = Rule(f"((missing symbol: {key}))")
@@ -54,27 +65,38 @@ class Grammar:
 
         return rule
 
+    # Modifiers
+
     def apply_mod(self, mod_name, text):
+        """Applies a modifier function to a text string"""
         if mod_name not in self.modifiers:
             raise KeyError(f"Unknown modifier: {mod_name!r}")
         return self.modifiers[mod_name](text)
 
-    def __repr__(self) -> str:
-        return f"Grammar(symbols={list(self.symbols)})"
+    # Action processing
 
     def add_or_get_symbol(self, key):
+        """Either gets a symbol or silently makes one to prevent a crash"""
         if key not in self.symbols:
-            self.symbols[key] = Symbol(key)
+            self.symbols[key] = Symbol(self, key)
 
         return self.symbols[key]
 
     def push_rules(self, key, rules):
+        """Pushes an action's rules down to a particular symbol"""
         symbol = self.add_or_get_symbol(key)
         symbol.push_rules(rules)
 
     def pop_rules(self, key, rules):
+        # TODO: May not need the rules passing here. Check the action path.
+        """Pops a rule off of a particular symbol. Removes the symbol if there are no more rules."""
         symbol = self.add_or_get_symbol(key)
-        popped = symbol.pop_rules()
+        symbol.pop_rules()
 
         if len(symbol.rule_sets) == 0:
-            symbol.pop(key, None)
+            self.symbols.pop(key, None)
+
+    # Representation
+
+    def __repr__(self) -> str:
+        return f"Grammar(symbols={list(self.symbols)})"
