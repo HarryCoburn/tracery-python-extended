@@ -13,6 +13,8 @@ A Tracery grammar fed into this function is a dict in the structure of:
     {
     Symbol: { rule_key: string or list of rules }
     }
+
+    But it may accept other simpler forms. TODO: Standardize the input grammar form rules, or even improve?
 """
 
 from .modifiers import modifiers as base_modifiers
@@ -41,8 +43,8 @@ class Grammar:
         self.clear()
 
         for key, rules in grammar.items():
-            self.symbols[key] = Symbol(self, key)
-            self.symbols[key].load_from(rules)
+            self.symbols[key] = Symbol(key)
+            self.symbols[key].load_rules(rules)
 
     # Creating output
 
@@ -84,7 +86,7 @@ class Grammar:
     def add_or_get_symbol(self, key):
         """Either gets a symbol or silently makes one to prevent a crash"""
         if key not in self.symbols:
-            self.symbols[key] = Symbol(self, key)
+            self.symbols[key] = Symbol(key)
 
         return self.symbols[key]
 

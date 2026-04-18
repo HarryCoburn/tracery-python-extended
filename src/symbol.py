@@ -1,39 +1,43 @@
+"""
+The class for the top-level entries in a processed Tracery grammar. Symbols are the keys in the Grammar class' symbols dict.
+
+Properties:
+    key: The name of the Symbol
+    current_rules: The current rule for processing
+    rule_sets: a list that serves as a stack of rules
+
+"""
+
 from .ruleset import RuleSet
 
 
 class Symbol:
-    def __init__(self, grammar, key) -> None:
-        self.grammar = grammar
+    def __init__(self, key) -> None:
         self.key = key
         self.current_rules = None
         self.rule_sets = []
 
-    def load_from(self, rules):
+    def load_rules(self, rules):
+        """Takes the rules from a Tracery grammar and converts them into RuleSet"""
         rule_set = RuleSet(rules)
-        self.base_rules = rule_set
         self.rule_sets.append(rule_set)
-        self.current_rules = self.rule_sets[-1]
+        self.current_rules = self.rule_sets[-1]  # current_rules is a stack?
 
     def get_rule(self):
+        """Grabs the specifics of whatever is considered the current rule"""
         return self.current_rules.get()
 
-    def wrapRules(self, rules):
-        if not isinstance(rules, RuleSet):
-            if isinstance(rules, list):
-                return RuleSet(rules)
-            elif isinstance(rules, str):
-                return RuleSet(rules)
-            else:
-                raise TypeError(f"Unknown rules type: {rules}")
-        return rules
-
+    # Action Processing
     def push_rules(self, rules):
-        rules = self.wrap_rules(rules)
+        """Adds rules from actions to the set of rules and puts it at the top of the stack"""
+        if not isinstance(rules, RuleSet):
+            rules = RuleSet(rules)
         self.rule_sets.append(rules)
-        self.current_rules = self.rule_sets[-1]
+        self.current_rules = self.rules_sets[-1]
 
-    def pop_rules(self, rules):
-        ex_rules = self.rule_sets.pop()
+    def pop_rules(self):
+        """Pops a rule off the stack after processing and shifts the current rule to the next in the stack"""
+        self.rule_sets.pop()
         if self.rule_sets:
             self.current_rules = self.rule_sets[-1]
 
