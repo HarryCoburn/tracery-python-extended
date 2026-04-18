@@ -26,6 +26,8 @@ class Node:
         self.parent = None
         self.grammar = None
         self.children = []
+        self.error = ""
+        self.actions = []
 
     def set_parent(self, parent):
         if parent:
