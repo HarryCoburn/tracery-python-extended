@@ -7,6 +7,12 @@ Grammar can also be initialized directly with a grammar.
 
 Grammar has:
     symbols = a dict of string keys and Symbol values, taken from the keys in the loaded grammar.
+    modifiers = a dict of string keys and function values to modify text with the . parameter.
+
+A Tracery grammar fed into this function is a dict in the structure of:
+    {
+    Symbol: { rule_key: string or list of rules }
+    }
 """
 
 from .modifiers import modifiers as base_modifiers
