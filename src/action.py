@@ -32,7 +32,7 @@ class Action:
             if len(split_symbol) == 2:
                 symbol, rules = split_symbol[0], split_symbol[1].split(",")
                 self.push = {"symbol": symbol, "rules": rules}
-                self.node.grammar.pushRules(self.push["symbol"], self.push["rules"])
+                self.node.grammar.push_rules(self.push["symbol"], self.push["rules"])
 
             else:
                 raise ValueError(f"Unknown action: {parsed['symbol']!r}")
@@ -45,4 +45,4 @@ class Action:
             sub_action.deactivate()
 
         if self.push:
-            self.node.grammar.popRules(self.push["symbol"], self.push["rules"])
+            self.node.grammar.pop_rules(self.push["symbol"], self.push["rules"])

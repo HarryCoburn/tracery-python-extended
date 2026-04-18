@@ -74,14 +74,22 @@ class Grammar:
     def applyToSymbols(self, fxn):
         pass
 
-    def addOrGetSymbol(self, key):
-        pass
+    def add_or_get_symbol(self, key):
+        if key not in self.symbols:
+            self.symbols[key] = Symbol(key)
 
-    def pushRules(self, key, rules):
-        pass
+        return self.symbols[key]
 
-    def popRules(self, key, rules):
-        pass
+    def push_rules(self, key, rules):
+        symbol = self.add_or_get_symbol(key)
+        symbol.push_rules(rules)
+
+    def pop_rules(self, key, rules):
+        symbol = self.add_or_get_symbol(key)
+        popped = symbol.pop_rules()
+
+        if len(symbol.rule_sets) == 0:
+            symbol.pop(key, None)
 
     def expand(self, raw):
         pass

@@ -24,13 +24,24 @@ class Symbol:
         pass
 
     def wrapRules(self, rules):
-        pass
+        if not isinstance(rules, RuleSet):
+            if isinstance(rules, list):
+                return RuleSet(rules)
+            elif isinstance(rules, str):
+                return RuleSet(rules)
+            else:
+                raise TypeError(f"Unknown rules type: {rules}")
+        return rules
 
-    def pushRules(self, rules):
-        pass
+    def push_rules(self, rules):
+        rules = self.wrap_rules(rules)
+        self.rule_sets.append(rules)
+        self.current_rules = self.rule_sets[-1]
 
-    def popRules(self, rules):
-        pass
+    def pop_rules(self, rules):
+        ex_rules = self.rule_sets.pop()
+        if self.rule_sets:
+            self.current_rules = self.rule_sets[-1]
 
     def setRules(self, rules):
         pass
