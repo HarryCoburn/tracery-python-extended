@@ -4,8 +4,9 @@ The class for the top-level entries in a processed Tracery grammar. Symbols are 
 Properties:
     key: The name of the Symbol
     current_rules: The current rule for processing
-    rule_sets: a list that serves as a stack of rules
+    rule_sets: a list that serves as a stack of rules, which should all be of type RuleSet
 
+TOOD: Feed rules in directly into the constructor like we're doing with Grammar?
 """
 
 from .ruleset import RuleSet
