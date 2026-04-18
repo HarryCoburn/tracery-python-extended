@@ -37,12 +37,6 @@ class RuleSet:
         """Turns rules into Rule objects, if they are not"""
         self.rules = [r if isinstance(r, Rule) else Rule(r) for r in self.rules]
 
-    def mapRules(self, fxn):
-        pass
-
-    def applyToRules(self, fxn):
-        pass
-
     def get(self):
         return self.rules[self._get_index()]
 

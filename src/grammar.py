@@ -62,18 +62,6 @@ class Grammar:
     def __repr__(self) -> str:
         return f"Grammar(symbols={list(self.symbols)})"
 
-    def select(self):
-        pass
-
-    def deselect(self):
-        pass
-
-    def mapSymbols(self, fxn):
-        pass
-
-    def applyToSymbols(self, fxn):
-        pass
-
     def add_or_get_symbol(self, key):
         if key not in self.symbols:
             self.symbols[key] = Symbol(key)
@@ -90,12 +78,3 @@ class Grammar:
 
         if len(symbol.rule_sets) == 0:
             symbol.pop(key, None)
-
-    def expand(self, raw):
-        pass
-
-    def analyze(self):
-        pass
-
-    def selectSymbol(self, key):
-        pass

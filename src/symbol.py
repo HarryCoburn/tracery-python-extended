@@ -17,12 +17,6 @@ class Symbol:
     def get_rule(self):
         return self.current_rules.get()
 
-    def mapRules(self, fxn):
-        pass
-
-    def applyToRules(self, fxn):
-        pass
-
     def wrapRules(self, rules):
         if not isinstance(rules, RuleSet):
             if isinstance(rules, list):
@@ -42,18 +36,6 @@ class Symbol:
         ex_rules = self.rule_sets.pop()
         if self.rule_sets:
             self.current_rules = self.rule_sets[-1]
-
-    def setRules(self, rules):
-        pass
-
-    def addRule(self, rule):
-        pass
-
-    def select(self, rule):
-        pass
-
-    def deselect(self, rule):
-        pass
 
     def __repr__(self) -> str:
         return f"Symbol({self.key!r})"
