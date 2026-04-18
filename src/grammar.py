@@ -17,6 +17,8 @@ A Tracery grammar fed into this function is a dict in the structure of:
     But it may accept other simpler forms. TODO: Standardize the input grammar form rules, or even improve?
 """
 
+import json
+
 from .modifiers import modifiers as base_modifiers
 from .node import RootNode
 from .rule import Rule
@@ -105,6 +107,12 @@ class Grammar:
             self.symbols.pop(key, None)
 
     # Representation
+
+    def pretty(self):
+        print(json.dumps(self.to_dict(), indent=2))
+
+    def to_dict(self) -> dict:
+        return {key: sym.to_dict() for key, sym in self.symbols.items()}
 
     def __repr__(self) -> str:
         return f"Grammar(symbols={list(self.symbols)})"

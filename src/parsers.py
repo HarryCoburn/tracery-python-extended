@@ -1,5 +1,11 @@
-def parse_rule(rule):
+"""
+The core parsers that take a Rule and turns them into their individual section chunks.
+If we ever expand or change the grammar's internal symbols, these will need to handle those changes.
+"""
 
+
+def parse_rule(rule):
+    """Takes a Rule.raw, which should be a string, and processes it into a list of sections and tags"""
     # Confirm rule is a string
     if not isinstance(rule, str):
         raise TypeError(f"Cannot parse non-string rule: {rule}")
@@ -38,6 +44,7 @@ def parse_rule(rule):
 
 
 def _validate_rule(rule):
+    """Ensures that a raw rule string is balanced"""
     depth = 0
     for char in rule:
         if char == "[":
@@ -55,6 +62,7 @@ def _validate_rule(rule):
 
 
 def _validate_tag(tag):
+    """Ensures a tag string is balanced"""
     depth = 0
     for char in tag:
         if char == "[":
@@ -65,13 +73,14 @@ def _validate_tag(tag):
                 raise ValueError(f"Unmatched ']' in tag {tag!r}")
 
     if depth > 0:
-        raise ValueError(f"Too many [ in tag '{tag!r}'")
+        raise ValueError(f"Unclosed [ in tag '{tag!r}'")
 
 
 def parse_tag(tag):
+    """Turns a tag into an object for later processing with flatten"""
     prefxns = []  # Prefixes
     postfxns = []  # Postfixes
-    symbol = []
+    symbol = ""
     mods = []
 
     depth = 0

@@ -42,5 +42,11 @@ class Symbol:
         if self.rule_sets:
             self.current_rules = self.rule_sets[-1]
 
+    def to_dict(self) -> dict:
+        return {
+            "Symbol key": self.key,
+            "rule_sets": [rs.to_dict() for rs in self.rule_sets],
+        }
+
     def __repr__(self) -> str:
         return f"Symbol({self.key!r})"

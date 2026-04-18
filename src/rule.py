@@ -4,7 +4,7 @@ by parse_rule.
 
 Properties:
     raw: The raw rule given.
-    sections: the rule divided into its components from parse_rule (perhaps rename get_parsed to get_sections?)
+    sections: the rule divided into its components from parse_rule (TODO: perhaps rename get_parsed to get_sections?)
     error: A place for error messages related to the rule.
 """
 
@@ -25,6 +25,9 @@ class Rule:
     def get_parsed(self):
         """Get the parsed sections of the rule"""
         return self.sections
+
+    def to_dict(self) -> dict:
+        return {"raw": self.raw, "sections": self.sections}
 
     def __str__(self) -> str:
         return self.raw

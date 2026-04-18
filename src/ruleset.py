@@ -28,7 +28,7 @@ from .rule import Rule
 
 class RuleSet:
     def __init__(self, rules) -> None:
-        self.verify_rules(rules)
+        self._normalize_rules(rules)
         self.rules = self._normalize_rules(rules)
         self.parse_all()
         self.uses = [0] * len(self.rules)
@@ -58,6 +58,12 @@ class RuleSet:
         idx = random.choice(candidates)
         self.uses[idx] += 1
         return idx
+
+    def to_dict(self) -> dict:
+        return {
+            "uses": self.uses,
+            "rules": [r.to_dict() for r in self.rules],
+        }
 
     def __repr__(self) -> str:
         return f"RuleSet({self.rules!r})"
