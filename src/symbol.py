@@ -20,6 +20,7 @@ class Symbol:
 
     def load_rules(self, rules):
         """Takes the rules from a Tracery grammar and converts them into RuleSet"""
+        self.push_rules(rules)
         rule_set = RuleSet(rules)
         self.rule_sets.append(rule_set)
         self.current_rules = self.rule_sets[-1]  # current_rules is a stack?
@@ -34,13 +35,15 @@ class Symbol:
         if not isinstance(rules, RuleSet):
             rules = RuleSet(rules)
         self.rule_sets.append(rules)
-        self.current_rules = self.rules_sets[-1]
+        self.current_rules = rules
 
     def pop_rules(self):
         """Pops a rule off the stack after processing and shifts the current rule to the next in the stack"""
+        if not self.rule_sets:
+            return
+
         self.rule_sets.pop()
-        if self.rule_sets:
-            self.current_rules = self.rule_sets[-1]
+        self.current_rules = self.rule_sets[-1] if self.rule_sets else None
 
     def to_dict(self) -> dict:
         return {
