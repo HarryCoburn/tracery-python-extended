@@ -7,7 +7,8 @@
 - [] Simplify current_rules to just call the last one in rules?
 - [] Confirm action flows.
 
-
+## ruleset.py
+- [] Implement additional ways to get a rule string out of a list.
 
 
 ## action.js
