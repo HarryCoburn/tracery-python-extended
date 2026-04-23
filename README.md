@@ -4,6 +4,10 @@
 
 This is an implementation of the earlier version of the [Tracery](https://github.com/galaxykate/tracery/tree/master) library by Kate Compton into Python. This is not Tracery2, nor the tracery2 branch in the project above. Those features may get added later and I will likely extend it further once I use it in some of my other projects.
 
+## Where I'm at
+
+The program is now functional in all of the basics. It can now be extended or modified for new features.
+
 ## Why convert it?
 
 I did this conversion as my first personal project for [boot.dev](https://boot.dev). I have played several games that used random text generation or took a base text and changed it based on who was talking. Tracery seemed like the way to go, but it was in JS. 
