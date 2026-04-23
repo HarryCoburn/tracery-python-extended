@@ -178,7 +178,6 @@ grammar_test_actions_2 = {
     "origin": ["#[#setPronouns#][#setOccupation#][hero:#name#]story#"],
 }
 
-
 grammar_test_nested = {
     "name": ["Arjun", "Yuuma", "Darcy", "Mia", "Chiaki", "Izzi", "Azra", "Lina"],
     "animal": [
@@ -246,7 +245,7 @@ grammar_test_nested = {
 }
 
 g = Grammar(grammar_test_nested)  # for testing.
-g.pretty()
+# g.pretty() # For printing the grammar tree
 for _ in range(1, 6):
     response = g.flatten("#origin#")
     print(f"The response is: {response}")
