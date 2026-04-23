@@ -93,4 +93,5 @@ There's nothing stopping you from nesting actions or tags to create loops within
 - Change action to something like StoryVar, since that's what they seem to be acting like
 - Create some sort of an Accent system to transform a whole sentence based on accent rules (e.g. Chrono Cross)
 - Follow up on later versions of Tracery to see how it was extended
+- See how Evennia handles text generation so I can integrate what I have with it, and perhaps check for plugins to see if this hasn't already been done...
 - Consider if there is a better way to make the grammars than magic strings
