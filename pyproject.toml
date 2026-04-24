@@ -1,0 +1,6 @@
+[project]
+name="py_tracery"
+description = "Python Tracery port"
+version = "0.1.0"
+authors = [{name= "Harry Coburn"}, {name="Kate Compton"}]
+dependencies = []
