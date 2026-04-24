@@ -31,7 +31,7 @@ Create an instance of the Grammar class with your grammar, then use flatten() on
 
 Instead of JSON, this version uses python dictionaries where each key:value pair has a string key and a value of a list of strings.
 
-The key "origin" (or whatever you choose) holds the base statement you're creating. For now, you must place the key between two # signs when you use flatten.
+You'll need one key to be the base string you'll use, like "sentence" or "origin". 
 
 ### Hashtags
 
