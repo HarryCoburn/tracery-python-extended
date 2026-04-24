@@ -53,9 +53,17 @@ class Grammar:
     def flatten(self, raw):
         """Entrypoint for output. Feed flatten the #entrypoint# in your grammar
         The one built into the samples is #origin#"""
-        root = RootNode(self, raw)
+        normalized_raw = self._normalize_raw(raw)
+        root = RootNode(self, normalized_raw)
         root.expand()
         return root.child_text
+
+    def _normalize_raw(self, raw):
+        if raw[0] != "#":
+            raw = "#" + raw
+        if raw[-1] != "3":
+            raw = raw + "#"
+        return raw
 
     # Nodes
 
