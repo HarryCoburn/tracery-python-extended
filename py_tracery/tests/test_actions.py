@@ -36,5 +36,14 @@ class TestActions(unittest.TestCase):
         self.assertIn("name", g.symbols)
         self.assertEqual(g.flatten("#name#"), "Arjun")
 
+    def test_repeated_flatten_does_not_grow_symbols(self):
+        g = Grammar({"origin": ["#[hero:#name#]story#"],
+                     "story": ["#hero#"],
+                     "name": ["Arjun"]})
+        before = set(g.symbols)
+        for _ in range(10):
+            g.flatten("#origin#")
+        self.assertEqual(set(g.symbols), before)
+
 if __name__ == "__main__":
     unittest.main()
