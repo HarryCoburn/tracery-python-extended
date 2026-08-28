@@ -29,8 +29,9 @@ class Grammar:
     """The Tracery Grammar class"""
 
     def __init__(self, grammar=None) -> None:
-        self.symbols = {}
-        self.modifiers = base_modifiers.copy()
+        self.symbols = {} # The symbol dictionary
+        self.modifiers = base_modifiers.copy()  # A copy of the bare modifiers dict. Not sure why it's a copy.
+        ## Load the grammer if there is one.
         if grammar is not None:
             self.load_from(grammar)
 
@@ -41,9 +42,11 @@ class Grammar:
         self.modifiers = base_modifiers.copy()
 
     def load_from(self, grammar):
-        """Loads grammar into the Grammar instance"""
+        """Loads grammar into the Grammar instance. A grammar should be a dict of lists, string keys, string values"""
+        # Clear just in case
         self.clear()
 
+        # Each of the entries in garmmar gets broken up into several Symbols.
         for key, rules in grammar.items():
             self.symbols[key] = Symbol(key)
             self.symbols[key].load_rules(rules)
@@ -53,8 +56,12 @@ class Grammar:
     def flatten(self, raw):
         """Entrypoint for output. Feed flatten the #entrypoint# in your grammar
         The one built into the samples is #origin#"""
-        normalized_raw = self._normalize_raw(raw)
-        root = RootNode(self, normalized_raw)
+        return self._expand(self._normalize_raw(raw))
+
+
+    def _expand(self, raw):
+        """Expands a new rule string with no normalization"""
+        root = RootNode(self, raw)
         root.expand()
         return root.child_text
 

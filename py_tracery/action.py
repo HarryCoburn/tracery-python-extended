@@ -19,7 +19,7 @@ class Action:
         self.node.actions.append(self)
 
         # Replace hashtags
-        self.amended = self.grammar.flatten(self.raw)
+        self.amended = self.grammar._expand(self.raw)
 
         parsed = parse_tag(self.amended)
 
