@@ -13,14 +13,14 @@ from .ruleset import RuleSet
 
 
 class Symbol:
-    def __init__(self, key) -> None:
+    def __init__(self, key, action_created) -> None:
         self.key = key # the name of the symbol
         self.current_rules = None
         self.rule_sets = []
+        self.is_action_created = action_created
 
     def load_rules(self, rules):
         """Takes the rules from a Tracery grammar and converts them into RuleSet"""
-        self.push_rules(rules)
         rule_set = RuleSet(rules)
         self.rule_sets.append(rule_set)
         self.current_rules = self.rule_sets[-1]  # current_rules is a stack?
@@ -41,9 +41,9 @@ class Symbol:
         """Pops a rule off the stack after processing and shifts the current rule to the next in the stack"""
         if not self.rule_sets:
             return
-
-        self.rule_sets.pop()
-        self.current_rules = self.rule_sets[-1] if self.rule_sets else None
+        if self.is_action_created == True:
+            self.rule_sets.pop()
+            self.current_rules = self.rule_sets[-1] if self.rule_sets else None
 
     def to_dict(self) -> dict:
         return {

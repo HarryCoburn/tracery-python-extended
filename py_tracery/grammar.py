@@ -48,7 +48,7 @@ class Grammar:
 
         # Each of the entries in garmmar gets broken up into several Symbols.
         for key, rules in grammar.items():
-            self.symbols[key] = Symbol(key)
+            self.symbols[key] = Symbol(key, False)
             self.symbols[key].load_rules(rules)
 
     # Creating output
@@ -103,7 +103,7 @@ class Grammar:
     def add_or_get_symbol(self, key):
         """Either gets a symbol or silently makes one to prevent a crash"""
         if key not in self.symbols:
-            self.symbols[key] = Symbol(key)
+            self.symbols[key] = Symbol(key, True)
 
         return self.symbols[key]
 
