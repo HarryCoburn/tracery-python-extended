@@ -4,6 +4,10 @@
 
 This is an implementation of the earlier version of the [Tracery](https://github.com/galaxykate/tracery/tree/master) library by Kate Compton into Python. This is not Tracery2, nor the tracery2 branch in the project above. Those features may get added later and I will likely extend it further once I use it in some of my other projects.
 
+Edit 8/28/2026.
+
+Now that I look at this more, the less I like it. This needs a complete overhaul.
+
 ## Where I'm at
 
 The program is now functional in all of the basics. It can now be extended or modified for new features.

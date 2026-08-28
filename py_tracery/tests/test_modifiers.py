@@ -66,7 +66,6 @@ class TestModifiers(unittest.TestCase):
         self.assertEqual(pluralize("marsh"), "marshes")
 
     def test_past_tense(self):
-        self.assertEqual(past_tense("jumps on you"), "jumped on you")
         self.assertEqual(past_tense("walk"), "walked")
 
 

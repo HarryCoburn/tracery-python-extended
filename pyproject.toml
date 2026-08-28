@@ -8,3 +8,6 @@ dependencies = [
     "pytest-cov",
     "hypothesis",
     ]
+
+[tool.coverage.run]
+omit = ["py_tracery/tests/*", "py_tracery/grammars.py", "py_tracery/main.py"]

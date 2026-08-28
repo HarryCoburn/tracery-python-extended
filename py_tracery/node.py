@@ -93,6 +93,7 @@ class TagNode(Node):
         self.create_children_from_sections(self.rule.get_parsed())
 
         for pre_action in self.pre_actions:
+            print(f"Node is: {self}, raw is {pre_action}\n")
             action = Action(self, pre_action)
             action.activate()
             self.actions.append(action)

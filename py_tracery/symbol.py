@@ -14,7 +14,7 @@ from .ruleset import RuleSet
 
 class Symbol:
     def __init__(self, key) -> None:
-        self.key = key
+        self.key = key # the name of the symbol
         self.current_rules = None
         self.rule_sets = []
 
