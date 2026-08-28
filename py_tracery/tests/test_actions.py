@@ -21,5 +21,20 @@ class TestActions(unittest.TestCase):
         out = g.flatten("#origin#")
         self.assertIn("[hero:", out)
 
+    def test_action_symbol_is_removed_after_flatten(self):
+        g = Grammar({"origin": ["#[hero:#name#]story#"],
+                     "story": ["#hero#"],
+                     "name": ["Arjun"]})
+        g.flatten("#origin#")
+        self.assertNotIn("hero", g.symbols)
+
+    def test_grammar_symbol_survives_an_action_push(self):
+        g = Grammar({"origin": ["#[name:Bob]story#"],
+                     "story": ["#name#"],
+                     "name": ["Arjun"]})
+        g.flatten("#origin#")
+        self.assertIn("name", g.symbols)
+        self.assertEqual(g.flatten("#name#"), "Arjun")
+
 if __name__ == "__main__":
     unittest.main()
