@@ -61,7 +61,7 @@ class Grammar:
     def _normalize_raw(self, raw):
         if raw[0] != "#":
             raw = "#" + raw
-        if raw[-1] != "3":
+        if raw[-1] != "#":
             raw = raw + "#"
         return raw
 
