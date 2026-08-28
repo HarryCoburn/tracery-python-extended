@@ -8,3 +8,5 @@ Removed the test case for "jumps" in test_past_tense. Merely adding an "s" check
 Test 1:
 
 We want to make sure an action stores a value and the reference so the same flatten returns the same value.
+
+This object graph is incredibly cyclic and I am getting lots of errors trying to test it. It's hard to verify the parts. Instead, the entrie thigns must get tested.
