@@ -41,9 +41,9 @@ class Symbol:
         """Pops a rule off the stack after processing and shifts the current rule to the next in the stack"""
         if not self.rule_sets:
             return
-        if self.is_action_created == True:
-            self.rule_sets.pop()
-            self.current_rules = self.rule_sets[-1] if self.rule_sets else None
+
+        self.rule_sets.pop()
+        self.current_rules = self.rule_sets[-1] if self.rule_sets else None
 
     def to_dict(self) -> dict:
         return {

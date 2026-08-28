@@ -105,6 +105,7 @@ class Grammar:
         if key not in self.symbols:
             self.symbols[key] = Symbol(key, True)
 
+
         return self.symbols[key]
 
     def push_rules(self, key, rules):
@@ -117,6 +118,8 @@ class Grammar:
         """Pops a rule off of a particular symbol. Removes the symbol if there are no more rules."""
         symbol = self.add_or_get_symbol(key)
         symbol.pop_rules()
+        if symbol.is_action_created and not symbol.rule_sets:
+            self.symbols.pop(key, None)
 
         if len(symbol.rule_sets) == 0:
             self.symbols.pop(key, None)
